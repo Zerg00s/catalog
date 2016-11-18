@@ -8,12 +8,29 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
 
+<script src="https://unpkg.com/isotope-layout@3.0/dist/isotope.pkgd.min.js"></script>
+
 <link href="/catalogue/Assets/App/Forms/Catalog/catalog.css" rel="stylesheet" >
-<script src="/catalogue/Assets/App/Forms/Catalog/catalog.js"></script>
 
-<div ng-app="opApp" ng-controller="opController">
-    <h1>Catalog</h1>
+
+<div ng-app="opApp" ng-controller="opController" style="margin-top:30px">
     <div>
+        <div class="button-group filters-button-group">
+            <button type="button"  class="button is-checked" data-filter="*">Show all</button>
+            <button type="button"  class="button" data-filter=".metal">Application support</button>
+            <button type="button"  class="button" data-filter=".transition">Financial</button>
+            <button type="button"  class="button" data-filter=".alkali, .alkaline-earth">Desktop Support</button>
+            <button type="button"  class="button" data-filter=":not(.transition)">Teleconferencing</button>
+            <button type="button"  class="button" data-filter=".metal:not(.transition)">Professional Services</button>
+        </div>
 
+        <div class="grid">
+            <div ng-repeat="link in catalog.staticLinks" ng-class="link.class" data-category="{{link.category}}"
+                 load-on-finished="executeScopeFunction()" >
+                <img ng-src={{link.image}}/>
+            </div>
+        </div>
     </div>
 </div>
+
+<script src="/catalogue/Assets/App/Forms/Catalog/catalog.js"></script>
