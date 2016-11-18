@@ -1,0 +1,12 @@
+{
+  "generator-sppp": {
+    "appname": "catalog",
+    "appdesc": "",
+    "author": "Denis Molodtsov",
+    "siteUrl": "https://optrust.sharepoint.com/catalogue/",
+    "username": "admin@optrust.onmicrosoft.com",
+    "spRootFolder": "Assets",
+    "dlRootFolder": "App",
+    "bowerlibs": []
+  }
+}
