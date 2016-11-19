@@ -10,15 +10,16 @@
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
+    "cpass": "*",
     "gulp": "*",
+    "gulp-prompt": "*",
     "gulp-spsave": "*",
     "gulp-watch": "*",
-    "gulp-prompt": "*",
-    "sppull": "*",
+    "jsonfile": "*",
+    "open": "0.0.5",
     "path": "*",
     "sp-live-reload": "*",
-    "through2": "*",
-    "cpass": "*",
-    "jsonfile": "*"
+    "sppull": "*",
+    "through2": "*"
   }
 }

@@ -4,9 +4,34 @@ var spsave = require("gulp-spsave");
 var watch = require("gulp-watch");
 var prompt = require("gulp-prompt");
 var config = require('./gulp.config');
+var open = require('open'); 
 
 var through = require('through2');
 var LiveReload = require('sp-live-reload');
+
+// Promts you to choose a task 
+gulp.task('default', function() {
+    var taskNames = [];
+    for (var taskName in gulp.tasks) {
+        if (gulp.tasks.hasOwnProperty(taskName)) {
+            taskNames.push(taskName);
+        }
+    }
+
+    return gulp.src('*').pipe(
+        prompt.prompt({
+            type: 'list',
+            name: 'task',
+            message: 'Choose task name',
+            choices: taskNames
+        }, function(userResponse){
+            gulp.tasks[userResponse.task].fn();
+        }));
+});
+
+gulp.task('open',function(){
+    open('https://optrust.sharepoint.com/catalogue/');
+});
 
 gulp.task('touch-conf', function() {
     console.log("Checking configs...");
