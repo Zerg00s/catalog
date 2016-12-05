@@ -1,9 +1,20 @@
 * { box-sizing: border-box; }
 
+/*Fix for the large Top header*/
+.pageHeader {
+  height: 85px !important;
+}
 body {
   font-family: sans-serif;
 }
 
+.centered{
+  text-align: center
+}
+
+.opApp{
+margin-bottom: 140px;
+}
 /* ---- button ---- */
 
 .button {

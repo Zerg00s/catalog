@@ -13,7 +13,7 @@
 <link href="/catalogue/Assets/App/Forms/Catalog/catalog.css" rel="stylesheet" >
 
 
-<div ng-app="opApp" ng-controller="opController" style="margin-top:30px">
+<div ng-app="opApp" ng-controller="opController" style="margin-top:30px" class="opApp">
     <div>
         <div class="button-group filters-button-group">
             <button type="button"  class="button is-checked" data-filter="*">Show all</button>
@@ -27,7 +27,8 @@
         <div class="grid">
             <div ng-repeat="link in catalog.staticLinks" ng-class="link.class" data-category="{{link.category}}"
                  load-on-finished="executeScopeFunction()" >
-                <img ng-src={{link.image}}/>
+                 <a ng-href="{{'https://optrust.sharepoint.com/catalogue/SitePages/Accounts%20&%20Passwords%20-%20Faculty.aspx'}}"><img ng-src={{link.image}}/></a>
+                <!-- <h4 class="centered">{{link.name}}</h3>-->
             </div>
         </div>
     </div>
