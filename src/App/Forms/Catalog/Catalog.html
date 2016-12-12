@@ -14,24 +14,33 @@
 
 
 <div ng-app="opApp" ng-controller="opController" style="margin-top:30px" class="opApp">
+    <div class="search-box">
+        <p><input type="text" class="quicksearch" tabindex="0" id="searchBox" placeholder="Search for a service..." /></p>
+        
+    </div>
     <div>
         <div class="button-group filters-button-group">
             <button type="button"  class="button is-checked" data-filter="*">Show all</button>
-            <button type="button"  class="button" data-filter=".metal">Application support</button>
-            <button type="button"  class="button" data-filter=".transition">Financial</button>
-            <button type="button"  class="button" data-filter=".alkali, .alkaline-earth">Desktop Support</button>
-            <button type="button"  class="button" data-filter=":not(.transition)">Teleconferencing</button>
-            <button type="button"  class="button" data-filter=".metal:not(.transition)">Professional Services</button>
+            <button type="button"  class="button" data-filter=".metal">Finance</button>
+            <button type="button"  class="button" data-filter=".transition">Security</button>
+            <button type="button"  class="button" data-filter=".alkali, .alkaline-earth">Knowledge</button>
+            <button type="button"  class="button" data-filter=":not(.transition)">Favorite</button>
+            <!--<button type="button"  class="button" data-filter=".metal:not(.transition)">Professional Services</button>-->
         </div>
 
         <div class="grid">
             <div ng-repeat="link in catalog.staticLinks" ng-class="link.class" data-category="{{link.category}}"
                  load-on-finished="executeScopeFunction()" >
-                 <a ng-href="{{'https://optrust.sharepoint.com/catalogue/SitePages/Accounts%20&%20Passwords%20-%20Faculty.aspx'}}"><img ng-src={{link.image}}/></a>
-                <!-- <h4 class="centered">{{link.name}}</h3>-->
+                 <a ng-href="{{'https://optrust.sharepoint.com/catalogue/SitePages/Accounts%20&%20Passwords%20-%20Faculty.aspx'}}">
+                    <img class='service-icon' ng-src={{link.image}}/>
+                 </a>
+                 
+                <img id='star' width="25" src='https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Five-pointed_star.svg/255px-Five-pointed_star.svg.png'>
+                <h4 class="centered black">{{link.name}}</h3>
             </div>
         </div>
     </div>
 </div>
 
 <script src="/catalogue/Assets/App/Forms/Catalog/catalog.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>

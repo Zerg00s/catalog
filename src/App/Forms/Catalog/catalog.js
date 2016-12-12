@@ -1,8 +1,11 @@
 "use strict";
 var app = angular.module('opApp',[]);
 app.controller('opController', function($scope){
-
+	$scope.search = '';
     $scope.catalog = {};
+
+	document.getElementById("searchBox").focus();;
+ 
     $scope.catalog.staticLinks = 
     [
 	{ class:"element-item transition metal", category:"transition",
@@ -60,7 +63,7 @@ app.controller('opController', function($scope){
         image:"https://razorjack.net/quicksand/images/sync.png?1354486198"
 	},
 	{ class:"element-item transition metal", category:"transition",
-		name:"Rhenium",
+		name:"Devices",
 		number:"75",
 		weight:"186.207",
         image:"https://razorjack.net/quicksand/images/ical.png?1354486198"
@@ -84,7 +87,7 @@ app.controller('opController', function($scope){
         image:"https://razorjack.net/quicksand/images/ituna.png?1354486198"
 	},
 	{ class:"element-item lanthanoid metal inner-transition", category:"lanthanoid",
-		name:"Ytterbium",
+		name:"Hosting",
 		number:"70",
 		weight:"173.054",
         image:"https://razorjack.net/quicksand/images/network-utility.png?1354486198"
@@ -96,7 +99,7 @@ app.controller('opController', function($scope){
         image:"https://razorjack.net/quicksand/images/address-book.png?1354486198"
 	},
 	{ class:"element-item diatomic nonmetal", category:"diatomic",
-		name:"Network, database and application monitoring",
+		name:"Network and databass",
 		number:"7",
 		weight:"14.007",
         image:"https://razorjack.net/quicksand/images/keychain-access.png?1354486198"
@@ -105,7 +108,7 @@ app.controller('opController', function($scope){
 
     $scope.$watch('',true)
 
-    $scope.executeScopeFunction = function(){
+    $scope.executeScopeFunction = function() {
     // init Isotope
         var iso = new Isotope( '.grid', {
             itemSelector: '.element-item',
@@ -114,16 +117,16 @@ app.controller('opController', function($scope){
 
         // filter functions
         var filterFns = {
-        // show if number is greater than 50
-        numberGreaterThan50: function( itemElem ) {
-            var number = itemElem.querySelector('.number').textContent;
-            return parseInt( number, 10 ) > 50;
-        },
-        // show if name ends with -ium
-        ium: function( itemElem ) {
-            var name = itemElem.querySelector('.name').textContent;
-            return name.match( /ium$/ );
-        }
+			// show if number is greater than 50
+			numberGreaterThan50: function( itemElem ) {
+				var number = itemElem.querySelector('.number').textContent;
+				return parseInt( number, 10 ) > 50;
+			},
+			// show if name ends with -ium
+			ium: function( itemElem ) {
+				var name = itemElem.querySelector('.name').textContent;
+				return name.match( /ium$/ );
+			}
         };
 
         // bind filter button click
@@ -142,22 +145,60 @@ app.controller('opController', function($scope){
         // change is-checked class on buttons
         var buttonGroups = document.querySelectorAll('.button-group');
         for ( var i=0, len = buttonGroups.length; i < len; i++ ) {
-        var buttonGroup = buttonGroups[i];
-        radioButtonGroup( buttonGroup );
+			var buttonGroup = buttonGroups[i];
+			radioButtonGroup( buttonGroup );
         }
 
         function radioButtonGroup( buttonGroup ) {
-        buttonGroup.addEventListener( 'click', function( event ) {
-            // only work with buttons
-            if ( !matchesSelector( event.target, 'button' ) ) {
-            return;
-            }
-            buttonGroup.querySelector('.is-checked').classList.remove('is-checked');
-            event.target.classList.add('is-checked');
-        });
+			buttonGroup.addEventListener( 'click', function( event ) {
+				// only work with buttons
+				if ( !matchesSelector( event.target, 'button' ) ) {
+				return;
+				}
+				buttonGroup.querySelector('.is-checked').classList.remove('is-checked');
+				event.target.classList.add('is-checked');
+			});
         }
+
+		setupSearch();
     }
-});
+}) ;
+
+function setupSearch(){
+	var $quicksearch = $('.quicksearch').keyup( debounce( function() {
+		qsRegex = new RegExp( $quicksearch.val(), 'gi' );
+			$grid.isotope();
+	}, 200 ) );
+
+	// quick search regex
+	var qsRegex;
+
+	// init Isotope
+	var $grid = $('.grid').isotope({
+	itemSelector: '.element-item',
+	layoutMode: 'fitRows', 
+	filter: function() {
+		return qsRegex ? $(this).text().match( qsRegex ) : true;
+	}
+	});
+
+	// debounce so filtering doesn't happen every millisecond
+	function debounce( fn, threshold ) {
+	var timeout;
+	return function debounced() {
+		if ( timeout ) {
+		clearTimeout( timeout );
+		}
+		function delayed() {
+		fn();
+		timeout = null;
+		}
+		timeout = setTimeout( delayed, threshold || 100 );
+	}
+	}
+}
+
+
 
 
 app.directive('loadOnFinished', function ($timeout)

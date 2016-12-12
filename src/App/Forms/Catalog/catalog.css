@@ -1,5 +1,20 @@
 * { box-sizing: border-box; }
 
+#star{
+  position:relative;
+  right: -125px;
+  top: -129px;
+}
+
+ #searchBox{
+   width:300px;
+   margin: 20px 0;
+   font-size:20px;
+ }
+
+.black{
+  color: black !important;
+}
 /*Fix for the large Top header*/
 .pageHeader {
   height: 85px !important;
@@ -88,8 +103,8 @@ margin-bottom: 140px;
 .element-item {
   position: relative;
   float: left;
-  width: 140px;
-  height: 140px;
+  width: 160px;
+  height: 230px;
   margin: 5px;
   padding: 10px;
   color: #262524;
