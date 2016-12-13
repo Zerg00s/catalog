@@ -1,0 +1,62 @@
+<link  href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-animate.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.5.8/angular-sanitize.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+<link href="/catalogue/Assets/App/Forms/EmailTemplate/emailTemplate.css" rel="stylesheet" >
+
+<script src="/catalogue/Assets/App/Forms/EmailTemplate/emailApp.js"></script>
+
+<div ng-app="emailApp" ng-controller="emailController">
+
+<div class="container">
+
+    <div class="row"> 
+        <div class="col-md-12">
+            <h2>Email template generator</h2> 
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <span class='email-header'>TO...</span> <input type="text" id="to" class="long-input" ng-model="to">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+             <span class='email-header'>CC...</span> <input type="text" id="cc" class="long-input" ng-model="cc">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <span class='email-header'>Subject</span> <input type="text" id="subject" class="long-input" ng-model="subject">
+        </div>
+    </div>
+
+    <div class="row"> 
+        <div class="col-md-12">
+             <span class='email-header'>Body</span>
+             <textarea type="text" id="body" class="long-input" ng-model="body" rows='10'></textarea>
+        </div>
+    </div>
+
+    <div class="row"> 
+        <div class="col-md-12">
+            <h2>Embedded email link code</h2> 
+             <textarea ng-model="link" rows="5" class="long-input" ></textarea>
+        </div>
+    </div>
+
+    <div class="row"> 
+        <div class="col-md-12">
+              <a ng-href="{{link}}">Send email</a>
+        </div>
+    </div>
+    
+</div>
+
+</div>
