@@ -16,3 +16,40 @@ var controller = app.controller('emailController', function($scope,$sce){
              $scope.link = encodeURI(mailtto);
     }, true);
 });
+
+
+var sendEmail = function(){
+            
+    var requestHeaders = {
+        "Accept":"application/json;odata=verbose",
+        "content-type":"application/json;odata=verbose",
+        "X-RequestDigest": $("#__REQUESTDIGEST").val()
+    }
+
+    var restEndPointUrl = _spPageContextInfo.webServerRelativeUrl + "/_api/SP.Utilities.Utility.SendEmail";
+    $.ajax({
+        contentType: 'application/json',
+        url: restEndPointUrl,
+        type: "POST",
+        data: JSON.stringify({
+            'properties': {
+                '__metadata': { 
+                    'type': 'SP.Utilities.EmailProperties' 
+                },
+                'From': 'admin@optrust.onmicrosoft.com',
+                'To': { 'results': ['admin@optrust.onmicrosoft.com'] },
+                'Body': 'Body message',
+                'Subject': 'subject text'
+            }
+        }
+    ),
+        headers: requestHeaders,
+        success: function (data) {
+            console.log("An email was sent.");
+        },
+        error: function (args) {
+            console.log("We had a problem and an email was not sent.");
+            console.log(args);
+        }
+    });
+}
