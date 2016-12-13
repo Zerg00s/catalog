@@ -4,3 +4,7 @@
 span.email-header{
     font-size:16px;
 }
+
+#DeltaPlaceHolderPageTitleInTitleArea{
+    display: none;
+}
