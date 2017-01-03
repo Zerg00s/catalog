@@ -2,7 +2,7 @@
 var app = angular.module('emailApp',[]);
 
 var controller = app.controller('emailController', function($scope,$sce){
-    $scope.to = 'sample@optrustcom; sample2@optrust.com';
+    $scope.to = 'zergoos@zergoos.onmicrosoft.com; sample2@optrust.com';
     $scope.cc = 'additiona@optrust.com';
     $scope.subject = 'Sample subject';
     $scope.body = 'Sample body,\n\nitems:1\nmodel: Osx#124\n\nRegards,\nDenis Molodtsov';
@@ -15,41 +15,60 @@ var controller = app.controller('emailController', function($scope,$sce){
             '&body='+$scope.body;
              $scope.link = encodeURI(mailtto);
     }, true);
-});
+}); 
 
-
-var sendEmail = function(){
-            
-    var requestHeaders = {
-        "Accept":"application/json;odata=verbose",
-        "content-type":"application/json;odata=verbose",
-        "X-RequestDigest": $("#__REQUESTDIGEST").val()
-    }
-
-    var restEndPointUrl = _spPageContextInfo.webServerRelativeUrl + "/_api/SP.Utilities.Utility.SendEmail";
-    $.ajax({
-        contentType: 'application/json',
-        url: restEndPointUrl,
+var subject = "SUBJECT OF THE MAIL";
+var mailContent = "<h3>Some Heading for the mail</h3><p>Content</p><div>Content</div>";
+var toList = ["zergoos@zergoos.onmicrosoft.com"]
+ 
+//Send email message over REST
+function sendMail(toList, subject, mailContent) {
+    var restUrl = _spPageContextInfo.webAbsoluteUrl + "/_api/SP.Utilities.Utility.SendEmail",
+    restHeaders = {
+        "Accept": "application/json;odata=verbose",
+        "X-RequestDigest": $("#__REQUESTDIGEST").val(),
+        "Content-Type": "application/json;odata=verbose"
+    },
+    mailObject = {
+        'properties': {
+            '__metadata': {
+                'type': 'SP.Utilities.EmailProperties'
+            },
+            'To': {
+                'results': toList
+            },
+            'From': 'zergoos@zergoos.onmicrosoft.com"', // Important Note: this property does not work in SharePoint Online.
+                                                        // the <from> field will always be "no-reply@sharepointonline.com"
+            'Subject': subject,
+            'Body': mailContent,
+            "AdditionalHeaders":
+                {
+                    "__metadata":
+                       { "type": "Collection(SP.KeyValue)" },
+                    "results":
+                    [
+                        {
+                            "__metadata": {
+                                "type": 'SP.KeyValue'
+                            },
+                            "Key": "content-type",
+                            "Value": 'text/html',
+                            "ValueType": "Edm.String"
+                        }
+                    ]
+                }
+        }
+    };
+    return $.ajax({
+        contentType: "application/json",
+        url: restUrl,
         type: "POST",
-        data: JSON.stringify({
-            'properties': {
-                '__metadata': { 
-                    'type': 'SP.Utilities.EmailProperties' 
-                },
-                'From': 'admin@optrust.onmicrosoft.com',
-                'To': { 'results': ['admin@optrust.onmicrosoft.com'] },
-                'Body': 'Body message',
-                'Subject': 'subject text'
-            }
-        }
-    ),
-        headers: requestHeaders,
-        success: function (data) {
-            console.log("An email was sent.");
-        },
-        error: function (args) {
-            console.log("We had a problem and an email was not sent.");
-            console.log(args);
-        }
+        data: JSON.stringify(mailObject),
+        headers: restHeaders
     });
-}
+
+} 
+
+$(function(){
+    sendMail(toList, subject, mailContent).then(function(data){console.log(data.d)})
+})

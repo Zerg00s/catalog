@@ -1,0 +1,20 @@
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.3/nv.d3.min.css"/>    
+
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.9/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.3/nv.d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-nvd3/1.0.7/angular-nvd3.min.js"></script>
+ 
+<script src="https://optrust.sharepoint.com/catalogue/Assets/App/Forms/Charts/chart.js">    </script>
+<link href="https://optrust.sharepoint.com/catalogue/Assets/App/Forms/Charts/chart.css"  rel="stylesheet" type="text/css">
+
+ 
+<div ng-app="plunker" ng-controller="MainCtrl">
+    <nvd3 options="options" data="data" class="with-3d-shadow with-transitions"></nvd3>
+
+    <button type="button" ng-click="data.nodes.push({'name':'Denis','group':1})"> </button>
+</div>
+
+
+ 

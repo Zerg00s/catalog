@@ -8,3 +8,7 @@ span.email-header{
 #DeltaPlaceHolderPageTitleInTitleArea{
     display: none;
 }
+
+.ms-dialog #s4-ribbonrow{
+display: none;
+}
